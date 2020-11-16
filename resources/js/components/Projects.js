@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Table, Button } from 'react-bootstrap'
 import { BsPencil, BsPlus } from "react-icons/bs"
+import Select from 'react-select';
 
 class Projects extends Component{
     constructor(props){
@@ -14,10 +15,12 @@ class Projects extends Component{
         }
     }
 
-    getFilteredProject(e){
-        e.preventDefault();
+    getFilteredProject(project_Id){
+        // e.preventDefault();
 
-        const project_Id = e.target.value;
+        // const project_Id = e.target.value;
+
+        console.log(project_Id);
 
         axios.get(`/api/projects/${project_Id}`).then(response => {
             this.setState({
@@ -62,6 +65,14 @@ class Projects extends Component{
 
         const { projectList } = this.state
 
+        const project_list = projectList.map( (projectl, index) => (
+                                { label: projectl.name, value: projectl.id }
+                             ));
+
+        var new_value = {'label': "All Projects", 'value': ""}
+
+        project_list.splice(0, 0, new_value);
+
         return (
             <div className="container py-4">
                 <div className="row justify-content-center">
@@ -71,17 +82,12 @@ class Projects extends Component{
                             <div className='card-body'>
                                 <Container>
                                     <Row>
-                                        <Col md={{ span: 3 }}><label className="font-weight-bold">Select Project:</label></Col>
+                                        <Col md={{ span: 3 }}><label className="font-weight-bold">Search Project:</label></Col>
                                         <Col md={{ span: 5 }}>
-                                            <select className="form-control" name="select_project"
-                                                    onChange={this.getFilteredProject.bind(this)}>
-                                                <option value=''>Select Project</option>
-                                                { projectList.map( projectl => (
-                                                    <option value={ projectl.id }>
-                                                        { projectl.name }
-                                                    </option>
-                                                ))}
-                                            </select>
+
+                                            <Select options={project_list} name="select_project"
+                                                    onChange={opt => this.getFilteredProject(opt.value)}
+                                            />
                                         </Col>
                                         <Col md={{ span: 1 }}></Col>
                                         <Col md={{ span: 3 }}>
