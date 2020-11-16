@@ -5,8 +5,7 @@ import Header from './Header'
 import NewProject from './NewProject'
 import EditProject from './EditProject'
 import Projects from './Projects'
-import ProjectsList from './ProjectsList'
-import SingleProject from './SingleProject'
+
 class App extends Component {
     render () {
         return (
@@ -15,11 +14,8 @@ class App extends Component {
                     <Header />
                     <Switch>
                         <Route exact path='/' component={Projects} />
+                        <Route path='/create' component={NewProject} />
                         <Route path='/:id' component={EditProject} />
-
-                        {/*<Route exact path='/' component={ProjectsList} />*/}
-                        {/*<Route path='/create' component={NewProject} />*/}
-                        {/*<Route path='/:id' component={SingleProject} />*/}
                     </Switch>
                 </div>
             </BrowserRouter>

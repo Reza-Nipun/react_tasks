@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Table, Button } from 'react-bootstrap'
-import { BsPencil } from "react-icons/bs"
+import { BsPencil, BsPlus } from "react-icons/bs"
 
 class Projects extends Component{
     constructor(props){
@@ -83,6 +83,12 @@ class Projects extends Component{
                                                 ))}
                                             </select>
                                         </Col>
+                                        <Col md={{ span: 1 }}></Col>
+                                        <Col md={{ span: 3 }}>
+                                            <Link className='btn btn-primary btn-md mb-3' to='/create'>
+                                                <BsPlus /> Project
+                                            </Link>
+                                        </Col>
                                     </Row>
                                 </Container>
 
@@ -97,8 +103,6 @@ class Projects extends Component{
                                     </div>
                                 </div>
                                 <br />
-
-
 
                                 <Table bordered hover responsive>
                                     <thead>

@@ -63,7 +63,7 @@ class NewProject extends Component {
                 <div className='row justify-content-center'>
                     <div className='col-md-6'>
                         <div className='card'>
-                            <div className='card-header'>Create new project</div>
+                            <div className='card-header'>Create Project</div>
                             <div className='card-body'>
                                 <form onSubmit={this.handleCreateNewProject}>
                                     <div className='form-group'>

@@ -10,7 +10,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::where('is_completed', false)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'Asc')
             ->withCount(['tasks' => function ($query) {
                 $query->where('is_completed', false);
             }])
