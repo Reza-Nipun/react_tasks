@@ -5,6 +5,7 @@ import Header from './Header'
 import NewProject from './NewProject'
 import EditProject from './EditProject'
 import Projects from './Projects'
+import ProjectTasks from './Tasks'
 
 class App extends Component {
     render () {
@@ -14,8 +15,9 @@ class App extends Component {
                     <Header />
                     <Switch>
                         <Route exact path='/' component={Projects} />
+                        <Route path='/project_tasks/:project_id' component={ProjectTasks} />
                         <Route path='/create' component={NewProject} />
-                        <Route path='/:id' component={EditProject} />
+                        <Route path='/edit_project/:id' component={EditProject} />
                     </Switch>
                 </div>
             </BrowserRouter>
@@ -23,4 +25,6 @@ class App extends Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+if (document.getElementById('app')) {
+    ReactDOM.render(<App />, document.getElementById('app'))
+}

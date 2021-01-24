@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Table, Button } from 'react-bootstrap'
 import { BsPencil, BsPlus } from "react-icons/bs"
 import Select from 'react-select';
+import ReactDOM from 'react-dom';
 
 class Projects extends Component{
     constructor(props){
@@ -20,7 +21,7 @@ class Projects extends Component{
 
         // const project_Id = e.target.value;
 
-        console.log(project_Id);
+        // console.log(project_Id);
 
         axios.get(`/api/projects/${project_Id}`).then(response => {
             this.setState({
@@ -39,9 +40,18 @@ class Projects extends Component{
                         <td>{project.id}</td>
                         <td>{project.name}</td>
                         <td>{project.description}</td>
-                        <td>{project.tasks_count}</td>
                         <td>
-                            <Link className='btn btn-warning btn-sm' size="sm" to={`/${project.id}`}>
+                            <Link className='btn btn-warning btn-sm' size="sm" 
+                            to={{
+                                pathname: `/project_tasks/${project.id}`,
+                                data: [project.name],
+                            }}
+                            >
+                                {project.tasks_count}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link className='btn btn-warning btn-sm' size="sm" to={`edit_project/${project.id}`}>
                                 <BsPencil />
                             </Link>
                         </td>
@@ -51,6 +61,8 @@ class Projects extends Component{
     }
 
     componentDidMount(){
+        document.title = "All Projects"
+
         axios.get('/api/projects/').then(response => {
             this.setState({
                 projects: response.data,

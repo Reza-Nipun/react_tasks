@@ -67,6 +67,8 @@ class EditProject extends Component {
     }
 
     componentDidMount () {
+        document.title = "Edit Projects"
+
         const projectId = this.props.match.params.id
 
         axios.get(`/api/projects/${projectId}`).then(response => {

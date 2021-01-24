@@ -19,6 +19,18 @@ class TaskController extends Controller
         return $task->toJson();
     }
 
+    public function getTasksByProjectId($project_id)
+    {
+        $tasks = Task::select('tasks.*', 'projects.name AS project_name')->where('project_id', $project_id)
+                ->orderBy('tasks.created_at', 'desc')
+                ->leftJoin('projects', function($join) {
+                    $join->on('projects.id', '=', 'tasks.project_id');
+                })
+                ->get();
+
+        return $tasks->toJson();
+    }
+
     public function markAsCompleted(Task $task)
     {
         $task->is_completed = true;

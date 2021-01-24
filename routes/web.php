@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::view('/{path?}', 'app');
+Route::view('/project_tasks/{path?}', 'app');
+Route::view('/edit_project/{path?}', 'app');

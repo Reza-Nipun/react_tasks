@@ -36,10 +36,6 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-//        $project = Project::with(['tasks' => function ($query) {
-//            $query->where('is_completed', false);
-//        }])->find($id);
-
         $projects = Project::where('id', $id)
             ->orderBy('created_at', 'desc')
             ->withCount(['tasks' => function ($query) {
@@ -48,8 +44,6 @@ class ProjectController extends Controller
             ->get();
 
         return $projects->toJson();
-
-        return $project->toJson();
     }
 
     public function update(Request $request, $id){
