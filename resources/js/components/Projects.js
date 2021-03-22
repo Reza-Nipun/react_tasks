@@ -16,6 +16,11 @@ class Projects extends Component{
         }
     }
 
+    handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
+    }
+
     getFilteredProject(project_Id){
         // e.preventDefault();
 
@@ -41,7 +46,7 @@ class Projects extends Component{
                         <td>{project.name}</td>
                         <td>{project.description}</td>
                         <td>
-                            <Link className='btn btn-warning btn-sm' size="sm" 
+                            <Link className='btn btn-primary btn-sm' size="sm"
                             to={{
                                 pathname: `/project_tasks/${project.id}`,
                                 data: [project.name],
@@ -88,7 +93,7 @@ class Projects extends Component{
         return (
             <div className="container py-4">
                 <div className="row justify-content-center">
-                    <div className='col-md-8'>
+                    <div className='col-md-12'>
                         <div className="card">
                             <div className='card-header'>All Projects</div>
                             <div className='card-body'>
@@ -125,7 +130,7 @@ class Projects extends Component{
                                 <Table bordered hover responsive>
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>#</th>
                                             <th>Project Name</th>
                                             <th>Description</th>
                                             <th>Tasks Count</th>

@@ -26,3 +26,6 @@ Route::put('projects/{project}', 'ProjectController@update');
 Route::post('tasks', 'TaskController@store');
 Route::put('tasks/{task}', 'TaskController@markAsCompleted');
 Route::get('tasks/{project_id}', 'TaskController@getTasksByProjectId');
+Route::get('tasks_info/{task_id}', 'TaskController@getTasksInfoByTaskId');
+Route::put('update_task_info/{task_id}', 'TaskController@updateTaskInfo');
+Route::post('create_project_task', 'TaskController@createProjectTask');

@@ -10,6 +10,7 @@ class Tasks extends Component{
         super(props)
         this.state = {
             tasks: [],
+            project_id: '',
             page_header_title: '',
         }
     }
@@ -24,7 +25,7 @@ class Tasks extends Component{
                         <td>{task.title}</td>
                         <td>{task.project_name}</td>
                         <td>
-                            <Link className='btn btn-warning btn-sm' size="sm" to={`/tasks/${task.id}`}>
+                            <Link className='btn btn-warning btn-sm' size="sm" to={`/edit_task/${task.id}`}>
                                 <BsPencil />
                             </Link>
                         </td>
@@ -41,6 +42,7 @@ class Tasks extends Component{
         axios.get(`/api/tasks/${project_id}`).then(response => {
             this.setState({
                 tasks: response.data,
+                project_id: response.data[0].project_id,
             })
         })
 
@@ -52,7 +54,7 @@ class Tasks extends Component{
         return (
             <div className="container py-4">
                 <div className="row justify-content-center">
-                    <div className='col-md-8'>
+                    <div className='col-md-12'>
                         <div className="card">
                             <div className='card-header'>
                                 <Container>
@@ -61,9 +63,9 @@ class Tasks extends Component{
                                             <h3>Tasks</h3>
                                         </Col>
                                         <Col md={{ span: 3 }}>
-                                            <Button variant="primary mb-3">
+                                            <Link className='btn btn-primary btn-md mb-3' to={`/create_tasks/${this.state.project_id}`}>
                                                 <BsPlus /> Task
-                                            </Button>
+                                            </Link>
                                         </Col>
                                     </Row>
                                 </Container>

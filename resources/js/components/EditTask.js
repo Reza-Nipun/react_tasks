@@ -2,13 +2,13 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 
-class EditProject extends Component {
+class EditTask extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            project: [],
+            task: [],
             name: '',
-            description: ''
+            project_id: ''
         }
 
         this.handleFieldChange = this.handleFieldChange.bind(this)
@@ -26,29 +26,22 @@ class EditProject extends Component {
         });
     }
 
-    handleFieldChangeDescription(event) {
-
-        // update the state
-        this.setState({
-            description: event.target.value
-        });
-    }
-
     handleUpdateProject (event) {
         event.preventDefault()
 
         const { history } = this.props
 
-        const project = {
+        const task = {
             name: this.state.name,
-            description: this.state.description
         }
 
-        const projectId = this.props.match.params.id
+        const projectId = this.state.project_id
 
-        axios.put(`/api/projects/${projectId}`, project)
+        const taskId = this.props.match.params.task_id
+
+        axios.put(`/api/update_task_info/${taskId}`, task)
             .then(response => {
-                history.push('/')
+                history.push(`/project_tasks/${projectId}`)
         })
     }
 
@@ -67,28 +60,28 @@ class EditProject extends Component {
     }
 
     componentDidMount () {
-        document.title = "Edit Projects"
+        document.title = "Edit Tasks"
 
-        const projectId = this.props.match.params.id
+        const taskId = this.props.match.params.task_id
 
-        axios.get(`/api/projects/${projectId}`).then(response => {
+        axios.get(`/api/tasks_info/${taskId}`).then(response => {
             this.setState({
-                project: response.data,
-                name: response.data[0].name,
-                description: response.data[0].description,
+                task: response.data,
+                name: response.data.title,
+                project_id: response.data.project_id,
             })
         })
     }
 
     render () {
-        const { project } = this.state
+        const { task } = this.state
 
         return (
             <div className='container py-4'>
                 <div className='row justify-content-center'>
                     <div className='col-md-8'>
                         <div className='card'>
-                            <div className='card-header'>Edit Project</div>
+                            <div className='card-header'>Edit Task</div>
                             <div className='card-body'>
                                 <form onSubmit={this.handleUpdateProject}>
                                     <label>
@@ -99,16 +92,6 @@ class EditProject extends Component {
                                             className="form-control"
                                             value={this.state.name}
                                             onChange={this.handleFieldChange} />
-                                    </label>
-                                    <br />
-                                    <label>
-                                        Description:
-                                        <textarea
-                                            name="description"
-                                            id="description"
-                                            className="form-control"
-                                            value={this.state.description}
-                                            onChange={this.handleFieldChange} ></textarea>
                                     </label>
                                     <br />
                                     <label>
@@ -124,4 +107,4 @@ class EditProject extends Component {
     }
 }
 
-export default EditProject
+export default EditTask

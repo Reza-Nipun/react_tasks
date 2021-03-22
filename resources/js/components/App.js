@@ -6,6 +6,8 @@ import NewProject from './NewProject'
 import EditProject from './EditProject'
 import Projects from './Projects'
 import ProjectTasks from './Tasks'
+import EditTask from './EditTask'
+import NewTask from './NewTask'
 
 class App extends Component {
     render () {
@@ -18,6 +20,8 @@ class App extends Component {
                         <Route path='/project_tasks/:project_id' component={ProjectTasks} />
                         <Route path='/create' component={NewProject} />
                         <Route path='/edit_project/:id' component={EditProject} />
+                        <Route path='/create_tasks/:project_id' component={NewTask} />
+                        <Route path='/edit_task/:task_id' component={EditTask} />
                     </Switch>
                 </div>
             </BrowserRouter>

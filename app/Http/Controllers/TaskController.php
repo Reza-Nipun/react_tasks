@@ -31,11 +31,35 @@ class TaskController extends Controller
         return $tasks->toJson();
     }
 
+    public function getTasksInfoByTaskId($task_id){
+        $tasks = Task::find($task_id);
+
+        return $tasks->toJson();
+    }
+
     public function markAsCompleted(Task $task)
     {
         $task->is_completed = true;
         $task->update();
 
         return response()->json('Task updated!');
+    }
+
+    public function updateTaskInfo(Request $request, $id){
+        $task = Task::find($id);
+        $task->title = $request->input('name');
+        $task->update();
+
+        return response()->json('Task updated!');
+    }
+
+    public function createProjectTask(Request $request){
+        $task = new Task();
+        $task->title = $request->title;
+        $task->project_id = $request->project_id;
+        $task->is_completed = 0;
+        $task->save();
+
+        return response()->json('Task saved!');
     }
 }
